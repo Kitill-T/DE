@@ -8,3 +8,7 @@ BEGIN
     FROM Students s
     JOIN Grades g ON s.StudentID = g.StudentID;
 END;
+
+
+-- Вызов процедуры
+EXEC CheckDataValidity;
