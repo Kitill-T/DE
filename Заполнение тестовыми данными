@@ -1,0 +1,20 @@
+-- Группы
+INSERT INTO Groups (GroupName) VALUES ('ИТ-1'), ('ЭК-1'), ('МЕХ-1');
+
+-- Студенты
+INSERT INTO Students (FullName, BirthDate, GroupID) VALUES
+('Иванов Иван', '2000-01-01', 1),
+('Петров Петр', '2001-02-02', 2),
+('Сидоров Сидор', '2002-03-03', 3);
+
+-- Дисциплины
+INSERT INTO Subjects (SubjectName) VALUES
+('Математика'),
+('Программирование'),
+('Физика');
+
+-- Оценки
+INSERT INTO Grades (StudentID, SubjectID, GradeValue) VALUES
+(1, 1, 4.5),
+(1, 2, 5.0),
+(2, 3, 3.7);
