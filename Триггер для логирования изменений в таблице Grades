@@ -1,0 +1,24 @@
+--Создадим таблицу для логирования изменений:
+
+CREATE TABLE GradeChangesLog (
+    LogID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT,
+    SubjectID INT,
+    OldGrade DECIMAL(3,1),
+    NewGrade DECIMAL(3,1),
+    ChangeDate DATETIME DEFAULT GETDATE()
+);
+
+--Создаем триггер:
+
+CREATE TRIGGER trg_UpdateGrade
+ON Grades
+AFTER UPDATE
+AS
+BEGIN
+    INSERT INTO GradeChangesLog (StudentID, SubjectID, OldGrade, NewGrade)
+    SELECT i.StudentID, i.SubjectID, d.GradeValue, i.GradeValue
+    FROM inserted i
+    JOIN deleted d ON i.GradeID = d.GradeID
+    WHERE i.GradeValue <> d.GradeValue;
+END;
