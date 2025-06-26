@@ -2,3 +2,5 @@
 BACKUP DATABASE YourDatabaseName
 TO DISK = 'C:\Backup\YourDatabaseName.bak'
 WITH FORMAT, MEDIANAME = 'SQLServerBackups', NAME = 'Full Backup of YourDatabaseName';
+
+--Замените YourDatabaseName на имя вашей базы данных. 
