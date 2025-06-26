@@ -1,0 +1,37 @@
+-- Удаление старых таблиц, если они есть
+IF OBJECT_ID('Grades', 'U') IS NOT NULL DROP TABLE Grades;
+IF OBJECT_ID('Students', 'U') IS NOT NULL DROP TABLE Students;
+IF OBJECT_ID('Groups', 'U') IS NOT NULL DROP TABLE Groups;
+IF OBJECT_ID('Subjects', 'U') IS NOT NULL DROP TABLE Subjects;
+
+-- Таблица групп
+CREATE TABLE Groups (
+    GroupID INT PRIMARY KEY IDENTITY(1,1),
+    GroupName NVARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Таблица студентов
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY IDENTITY(1,1),
+    FullName NVARCHAR(100) NOT NULL,
+    BirthDate DATE NOT NULL CHECK (BirthDate <= GETDATE()),
+    GroupID INT NOT NULL,
+    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID)
+);
+
+-- Таблица дисциплин
+CREATE TABLE Subjects (
+    SubjectID INT PRIMARY KEY IDENTITY(1,1),
+    SubjectName NVARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Таблица оценок
+CREATE TABLE Grades (
+    GradeID INT PRIMARY KEY IDENTITY(1,1),
+    StudentID INT NOT NULL,
+    SubjectID INT NOT NULL,
+    GradeValue DECIMAL(3,1) NOT NULL CHECK (GradeValue BETWEEN 0 AND 5),
+    DateReceived DATE NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID)
+);
