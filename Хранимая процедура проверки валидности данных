@@ -1,0 +1,10 @@
+CREATE PROCEDURE CheckDataValidity AS
+BEGIN
+    SELECT 
+        s.StudentID,
+        s.FullName,
+        g.GradeValue,
+        CASE WHEN g.GradeValue BETWEEN 0 AND 5 THEN 1 ELSE 0 END AS IsValid
+    FROM Students s
+    JOIN Grades g ON s.StudentID = g.StudentID;
+END;
